@@ -4,10 +4,16 @@ mon_fichier_dico = open('/Users/cchauvin/Documents/RH-Perso/Scrabble/visu/Dico.b
 dict_tableau_vers_mot = pickle.load(mon_fichier_dico)
 mon_fichier_dico.close()
 
-# print('Veuillez entrer les lettres : ')
-# lettres = input('Veuillez entrer les lettres : ')
-lettres = 'oolpag'
+valeur_des_lettres = {'A':1,'B':3,'C':3,'D':2,'E':1,'F':4,'G':2,'H':4,'I':1,'J':8,'K':10,'L':1,'M':2,'N':1,'O':1,'P':3,'Q':8,'R':1,'S':1,'T':1,'U':1,'V':4,'W':10,'X':10,'Y':10,'Z':10}
+
+lettres = 'UW'
 meslettres = sorted(lettres)
+
+def quel_score(mot):
+    score = 0
+    for letter in mot:
+        score = score + valeur_des_lettres.get(letter)
+    return score
 
 def combinaison_lettres(tirage, longueur):
     # permet de faire toutes les combinaisaons de k lettre à partir d'un tableau
@@ -36,7 +42,7 @@ def trouve_les_combinaisons(lettres):
     return tableau_combi
 
 
-toutes_les_combinaisons = trouve_les_combinaisons(lettres)
+toutes_les_combinaisons = trouve_les_combinaisons(lettres)  # toutes les combinaisons en tableau 
 
 toutes_les_solutions=[]
 for combinaison in toutes_les_combinaisons:
@@ -49,11 +55,9 @@ for combinaison in toutes_les_combinaisons:
             toutes_les_solutions.append(solutions)
 
 
-tutu = dict_tableau_vers_mot.get(lettres)
-if isinstance (tutu,list):
-    for i in tutu:
-        print('******* '+ i+' ********')
-else:
-    print('******* '+ tutu+' ********')
+tutu = set(toutes_les_solutions)
+for i in tutu:
+    print('******* '+ i+' ********'+str(quel_score(i)))
 
-test
+
+#test
